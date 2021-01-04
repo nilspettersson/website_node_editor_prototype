@@ -29,6 +29,7 @@ iframe {
     background: rgb(29, 29, 29);
     height: 50vh;
     overflow: hidden;
+    position: relative;
 }
 
 
@@ -41,7 +42,8 @@ iframe {
     min-width: 12em;
     /*resize: both;*/
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    z-index: 0;
 }
 
 .node:hover{

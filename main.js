@@ -3,27 +3,46 @@ let difX = 0;
 let difY = 0;
 let setup = false;
 
+id = 1;
+
+let output;
+
 window.onload = function(){
     currentNode  = null;
 
-    nodes = new NodeTree();
-    nodes.addNode(new NodeDiv(0, 0));
-    nodes.addNode(new NodeP(90, 40));
+    nodes = [];
+    //nodes.push(new NodeDiv(0, 0));
+    let div = new NodeDiv(0, 0);
+    div.addNode(new NodeP(400, 0));
 
-    /*node = new NodeDiv(0, 0);
-    node = new NodeP(90, 40);*/
+    output = new NodeOutput(90, 40);
+    output.addNode(div);
+
+    nodes.push(output);
+
+    output.getHtml();
+
+
+    /*setInterval(function(){
+        output.getHtml();
+    }, 100);*/
+    
 
     let css = 'body{ background:lightgray}'
 
-    let website = '<!DOCTYPE html>'+
+    /*let website = '<!DOCTYPE html>'+
     '<html lang="en">'+
     '<head><title>website</title> <style>'+ css +'</style> </head>'+
     '<body><h1>hello</h1> <p>testing some text to see if ita worka lika me wanta</p></body>'+
     '</html>';
 
     let viewer = document.getElementById("viewer");
-    viewer.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(website);
+    viewer.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(website);*/
 
+}
+
+document.onkeyup = function(e){
+    output.getHtml();
 }
 
 
@@ -60,13 +79,19 @@ document.onmousemove = function(e){
 }
 
 class HtmlNode{
-    constructor(x, y, id, type){
-        this.createElement(x, y, id, type);
+    constructor(x, y, type){
+        this.id = id;
+        this.createElement(x, y, type);
+        this.nodes = [];
     }
 
-    createElement(x, y, id, type){
+    addNode(node){
+        this.nodes.push(node);
+    }
+
+    createElement(x, y, type){
         let node = document.createElement("div");
-        node.id = id;
+        node.id = "node" + id++;
         node.style.left = x + "px";
         node.style.top = y + "px";
         node.classList.add("node");
@@ -97,14 +122,24 @@ class HtmlNode{
 
 }
 class NodeDiv extends HtmlNode{
-    constructor(x, y, id){
-        super(x, y, id, "div");
+    constructor(x, y){
+        super(x, y, "div");
+    }
+
+    getHtml(){
+        let html = '';
+        for(let i = 0; i < this.nodes.length; i++){
+            /*console.log(this.nodes[i].getHtml());*/
+            html += this.nodes[i].getHtml();
+        }
+
+        return '<div>' + html + '</div>'
     }
 }
 
 class NodeP extends HtmlNode{
-    constructor(x, y, id){
-        super(x, y, id, "div");
+    constructor(x, y){
+        super(x, y, "div");
     }
 
     createContent(){
@@ -112,19 +147,40 @@ class NodeP extends HtmlNode{
         content.classList.add("content");
 
         let text = document.createElement("textarea");
+        text.id = "textarea" + this.id;
 
         content.append(text);
 
         return content;
     }
-}
 
-class NodeTree{
-    constructor(){
-        this.nodes = [];
-    }
-
-    addNode(node){
-        this.nodes.push(node);
+    getHtml(){
+        
+        return '<p>' + document.getElementById("textarea" + this.id).value + '</p>';
     }
 }
+
+
+class NodeOutput extends HtmlNode{
+    constructor(x, y){
+        super(x, y, "output");
+    }
+
+    getHtml(){
+        let html = '';
+        for(let i = 0; i < this.nodes.length; i++){
+            /*console.log(this.nodes[i].getHtml());*/
+            html += this.nodes[i].getHtml();
+        }
+
+        let website = '<!DOCTYPE html>'+
+        '<html lang="en">'+
+        '<head><title>website</title> <style></style> </head>'+
+        '<body>' + html + '</body>'+
+        '</html>';
+    
+        let viewer = document.getElementById("viewer");
+        viewer.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(website);
+    }
+}
+
