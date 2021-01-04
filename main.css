@@ -1,0 +1,7 @@
+iframe {
+    height: 300px;
+    width: 300px;
+    resize: both;
+    overflow: auto;
+    border: solid 0.1em rgba(0, 0, 0, 0.356);
+}
