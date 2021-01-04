@@ -1,4 +1,7 @@
 let currentNode;
+let difX = 0;
+let difY = 0;
+let setup = false;
 
 window.onload = function(){
     currentNode  = "-1";
@@ -19,6 +22,7 @@ window.onload = function(){
 
 function mouseDown(e){
     currentNode = e.id;
+    setup = true;
     console.log(e.id);
 }
 
@@ -33,9 +37,20 @@ document.onmousemove = function(e){
     
     let x = e.pageX;
     let y = e.pageY;
-
     let node = document.getElementById(currentNode);
 
-    node.style.left = (x - node.offsetWidth / 2) + "px";
-    node.style.top = (y - node.offsetHeight / 2) + "px";
+    let nodeX = node.style.left.replace("px", "");
+    let nodeY = node.style.top.replace("px", "");
+
+    if(setup){
+        console.log(nodeX + " *** " + x);
+        difX = nodeX - x;
+        difY = nodeY - y;
+        setup = false;
+    }
+
+    console.log(difX);
+
+    node.style.left = (x + difX) + "px";
+    node.style.top = (y + difY) + "px";
 }
