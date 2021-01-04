@@ -28,17 +28,17 @@ iframe {
     padding: 4px;
     background: rgb(29, 29, 29);
     height: 50vh;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 
-.node{
-    
+.node{ 
+    display: inline-block;
     background: rgb(44, 44, 44);
     border: 0.064em solid rgba(255, 255, 255, 0);
     border-radius: 10px;
-    height: 10em;
-    width: 14em;
+    /*height: 10em;*/
+    min-width: 12em;
     /*resize: both;*/
     overflow: hidden;
     position: relative;
@@ -51,5 +51,10 @@ iframe {
 .node .header{
     background: rgb(34, 100, 145);
     color: white;
-    padding: 0.5em 1.4em;
+    padding: 0.5em 1em;
+}
+
+.node .content{
+    color: white;
+    padding: 0.5em 1em;
 }
