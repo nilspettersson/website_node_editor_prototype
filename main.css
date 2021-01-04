@@ -1,7 +1,55 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 16px;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.container{
+    margin: 0em 0em;
+}
+
 iframe {
     height: 300px;
-    width: 300px;
+    width: 100%;
     resize: both;
     overflow: auto;
-    border: solid 0.1em rgba(0, 0, 0, 0.356);
+    border: solid 0.1em rgb(48, 48, 48);
+}
+
+#editor{
+    padding: 4px;
+    background: rgb(29, 29, 29);
+    height: 50vh;
+    overflow: scroll;
+}
+
+
+.node{
+    
+    background: rgb(44, 44, 44);
+    border: 0.064em solid rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    height: 10em;
+    width: 14em;
+    /*resize: both;*/
+    overflow: hidden;
+    position: relative;
+}
+
+.node:hover{
+    border: 0.064em solid rgba(255, 255, 255, 0.226);
+}
+
+.node .header{
+    background: rgb(34, 100, 145);
+    color: white;
+    padding: 0.5em 1.4em;
 }

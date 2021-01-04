@@ -4,14 +4,28 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Website editor</title>
-        <meta name="description" content="">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="main.css">
 
         <script src="main.js"></script>
     </head>
     <body>
-        <iframe id='viewer'></iframe>
-
+        <div class="container">
+            <div id="editor">
+                <div id="node1" class="node" onmousedown="mouseDown(this)" onmouseup="mouseUp(this)">
+                    <div class="header">
+                        <p>div</p>
+                    </div>
+                    <div class="input">
+    
+                    </div>
+                </div>
+            </div>
+    
+            <iframe id='viewer'></iframe>
+        </div>
+        
     </body>
 </html>

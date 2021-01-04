@@ -1,15 +1,9 @@
-window.onload = function(){
-    /*window.open('data:text/html;charset=utf-8,' +
-    encodeURIComponent( // Escape for URL formatting
-        '<!DOCTYPE html>'+
-        '<html lang="en">'+
-        '<head><title>Embedded Window</title></head>'+
-        '<body><h1>42</h1></body>'+
-        '</html>'
-    )
-    );*/
+let currentNode;
 
-    let css = 'body{ background:red}'
+window.onload = function(){
+    currentNode  = "-1";
+
+    let css = 'body{ background:lightgray}'
 
     let website = '<!DOCTYPE html>'+
     '<html lang="en">'+
@@ -20,4 +14,28 @@ window.onload = function(){
     let viewer = document.getElementById("viewer");
     viewer.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(website);
 
+}
+
+
+function mouseDown(e){
+    currentNode = e.id;
+    console.log(e.id);
+}
+
+function mouseUp(e){
+    currentNode = "-1";
+}
+
+document.onmousemove = function(e){
+    if(currentNode == "-1"){
+        return;
+    }
+    
+    let x = e.pageX;
+    let y = e.pageY;
+
+    let node = document.getElementById(currentNode);
+
+    node.style.left = (x - node.offsetWidth / 2) + "px";
+    node.style.top = (y - node.offsetHeight / 2) + "px";
 }
