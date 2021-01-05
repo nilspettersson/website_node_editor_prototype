@@ -123,6 +123,9 @@ document.onmousemove = function(e){
     if(setup){
         difX = nodeX - x;
         difY = nodeY - y;
+        if(difY < -35){
+            return;
+        }
         setup = false;
     }
 
@@ -331,16 +334,18 @@ class NodeText extends HtmlNode{
         let content = document.createElement("div");
         content.classList.add("content");
 
-        let text = document.createElement("textarea");
-        text.id = "textarea" + this.id;
-
-        content.append(text);
+        content.append(this.createTextarea(this.id));
 
         return content;
     }
 
+    createTextarea(id){
+        let text = document.createElement("textarea");
+        text.id = "textarea" + id;
+        return text;
+    }
+
     getHtml(){
-        
         return '<p>' + document.getElementById("textarea" + this.id).value + '</p>';
     }
 }
