@@ -61,8 +61,8 @@ function drawLines(){
 
     //console.log(nodes);
     for(let i = 0; i < nodes.length; i++){
-        nodes[i].nodes
-        for(let ii = 0; ii < nodes[i].nodes.length; ii++){
+        nodes[i].drawLines();
+        /*for(let ii = 0; ii < nodes[i].nodes.length; ii++){
             let node = document.getElementsByClassName("input" + nodes[i].id)[ii];
             //console.log(node.getBoundingClientRect());
 
@@ -81,7 +81,7 @@ function drawLines(){
             g.lineTo(endX, endY);
             g.stroke();
 
-        }
+        }*/
 
 
     }
@@ -170,8 +170,6 @@ function inputMouseDown(e, nodeId, inputIndex){
 
 //adds child node to parent
 function outputMouseUp(e, nodeId){
-    //console.log(currentNodeId + "  " + nodeId);
-    //console.log(nodes);
 
     let parent = null;
     for(let i = 0; i < nodes.length; i++){
@@ -223,6 +221,32 @@ class HtmlNode{
         this.nodes = [];
 
         id++;
+    }
+
+    drawLines(){
+        for(let i = 0; i < this.nodes.length; i++){
+            let node = document.getElementsByClassName("input" + this.id)[i];
+            //console.log(node.getBoundingClientRect());
+
+            let startX = node.getBoundingClientRect().x - 4;
+            let startY = node.getBoundingClientRect().y + node.getBoundingClientRect().height / 2 - 4;
+
+            let childNode = document.getElementById("node" + this.nodes[i].id);
+            //console.log(childNode.getBoundingClientRect());
+            let endX = childNode.getBoundingClientRect().x + childNode.getBoundingClientRect().width - 4;
+            let endY = childNode.getBoundingClientRect().y + 16;
+
+
+            g.strokeStyle = "gray";
+            g.beginPath();
+            g.moveTo(startX, startY);
+            g.lineTo(endX, endY);
+            g.stroke();
+
+            this.nodes[i].drawLines();
+        }
+    
+    
     }
 
     findNode(nodeId){
