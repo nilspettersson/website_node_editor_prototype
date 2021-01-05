@@ -59,39 +59,9 @@ window.onload = function(){
 function drawLines(){
     g.clearRect(0, 0, canvas.width, canvas.height);
 
-    //console.log(nodes);
     for(let i = 0; i < nodes.length; i++){
         nodes[i].drawLines();
-        /*for(let ii = 0; ii < nodes[i].nodes.length; ii++){
-            let node = document.getElementsByClassName("input" + nodes[i].id)[ii];
-            //console.log(node.getBoundingClientRect());
-
-            let startX = node.getBoundingClientRect().x - 4;
-            let startY = node.getBoundingClientRect().y + node.getBoundingClientRect().height / 2 - 4;
-
-            let childNode = document.getElementById("node" + nodes[i].nodes[ii].id);
-            //console.log(childNode.getBoundingClientRect());
-            let endX = childNode.getBoundingClientRect().x + childNode.getBoundingClientRect().width - 4;
-            let endY = childNode.getBoundingClientRect().y + 16;
-
-
-            g.strokeStyle = "gray";
-            g.beginPath();
-            g.moveTo(startX, startY);
-            g.lineTo(endX, endY);
-            g.stroke();
-
-        }*/
-
-
     }
-
-    /*g.clearRect(0, 0, canvas.width, canvas.height);
-    g.strokeStyle = "gray";
-    g.beginPath();
-    g.moveTo(lineX - 4, lineY + input.getBoundingClientRect().height / 2 - 4);
-    g.lineTo(e.x, e.y);
-    g.stroke();*/
 }
 
 
@@ -123,7 +93,7 @@ document.onmousemove = function(e){
         lineX = input.getBoundingClientRect().x;
         lineY = input.getBoundingClientRect().y;
         
-        g.clearRect(0, 0, canvas.width, canvas.height);
+        drawLines();
         g.strokeStyle = "gray";
         g.beginPath();
         g.moveTo(lineX - 4, lineY + input.getBoundingClientRect().height / 2 - 4);
@@ -201,6 +171,7 @@ function outputMouseUp(e, nodeId){
     }
 
     console.log(output);
+    drawLines();
 }
 
 
