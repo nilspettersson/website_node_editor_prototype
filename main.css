@@ -114,3 +114,20 @@ iframe {
     border: calc(1em / 16) solid #000000af;
     border-radius: 100%;
 }
+
+.node-textarea{
+    border: 0.064em solid rgba(0, 0, 0, 0);
+    border-radius: 0.14em;
+    padding: 0.5em;
+    height: 5em;
+    outline: none;
+}
+.node-textarea:hover{
+    outline: none;
+    border: 0.064em solid rgba(0, 0, 0, 0);
+}
+
+.node-textarea:focus{
+    border: 0.064em solid #1873bee0;
+    box-shadow: 0em 0em 0.2em #1873be8c;
+}

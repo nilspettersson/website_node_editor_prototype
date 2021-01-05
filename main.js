@@ -291,6 +291,14 @@ class HtmlNode{
         return content;
     }
 
+    createTextarea(id){
+        let text = document.createElement("textarea");
+        text.classList.add("node-textarea");
+        text.id = id;
+        text.spellcheck = false;
+        return text;
+    }
+
     createInput(index){
         let input = document.createElement("div");
         input.classList.add("input");
@@ -334,16 +342,11 @@ class NodeText extends HtmlNode{
         let content = document.createElement("div");
         content.classList.add("content");
 
-        content.append(this.createTextarea(this.id));
+        content.append(this.createTextarea("textarea" + this.id));
 
         return content;
     }
 
-    createTextarea(id){
-        let text = document.createElement("textarea");
-        text.id = "textarea" + id;
-        return text;
-    }
 
     getHtml(){
         return '<p>' + document.getElementById("textarea" + this.id).value + '</p>';
@@ -359,10 +362,7 @@ class NodeHeader extends HtmlNode{
         let content = document.createElement("div");
         content.classList.add("content");
 
-        let text = document.createElement("textarea");
-        text.id = "textarea" + this.id;
-
-        content.append(text);
+        content.append(this.createTextarea("textarea" + this.id));
 
         return content;
     }
