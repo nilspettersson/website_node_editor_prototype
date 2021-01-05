@@ -27,17 +27,20 @@ window.onload = function(){
     
     nodes = [];
 
-    /*let div = new NodeDiv(0, 0);
-    div.addNode(new NodeText(400, 0));*/
 
     output = new NodeOutput(600, 40);
-    //output.addNode(div);
 
     nodes.push(output);
-    nodes.push(new NodeDiv(300, 20));
-    //output.addNode(new NodeText(40, 120));
-    nodes.push(new NodeText(40, 40));
-    //nodes.push(output);
+    /*nodes.push(new NodeDiv(300, 20));
+    nodes.push(new NodeText(40, 40));*/
+
+    for(let i = 0; i < 6; i++){
+        nodes.push(new NodeDiv(20, 20));
+    }
+
+    for(let i = 0; i < 6; i++){
+        nodes.push(new NodeText(20, 120));
+    }
 
     output.getHtml();
 
@@ -140,7 +143,7 @@ function inputMouseDown(e, nodeId, inputIndex){
 
 //adds child node to parent
 function outputMouseUp(e, nodeId){
-
+    console.log(e);
     let parent = null;
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].id == currentNodeId){
@@ -165,6 +168,10 @@ function outputMouseUp(e, nodeId){
         if(nodes[i].id == nodeId){
             parent.addNode(nodes[i]);
             nodes.splice(i, 1);
+
+            let input = parent.createInput(parent.nodes.length);
+            document.getElementById("node" + currentNodeId).append(input);
+
             break;
         }
         
@@ -259,7 +266,7 @@ class HtmlNode{
 
 
 
-        let input = document.createElement("div");
+        /*let input = document.createElement("div");
         input.classList.add("input");
         input.classList.add("input" + this.id);
 
@@ -268,7 +275,7 @@ class HtmlNode{
         input.append(dot);
 
         let nodeId = this.id;
-        dot.onmousedown = function(e){inputMouseDown(this, nodeId, 0)}
+        dot.onmousedown = function(e){inputMouseDown(this, nodeId, 0)}*/
 
         //fix this later
         //dot.onmouseup = function(e){inputMouseUp(this, nodeId, 0)}
@@ -276,11 +283,12 @@ class HtmlNode{
 
         let output = document.createElement("div");
         output.classList.add("output");
+        let nodeId = this.id;
         output.onmouseup = function(e){outputMouseUp(this, nodeId)}
 
         node.append(header);
         node.append(this.createContent());
-        node.append(input);
+        node.append(this.createInput(0));
         node.append(output);
 
         document.getElementById("editor").append(node);
@@ -289,6 +297,21 @@ class HtmlNode{
     createContent(){
         let content = document.createElement("div");
         return content;
+    }
+
+    createInput(index){
+        let input = document.createElement("div");
+        input.classList.add("input");
+        input.classList.add("input" + this.id);
+    
+        let dot = document.createElement("div");
+        dot.classList.add("dot");
+        input.append(dot);
+
+        let nodeId = this.id;
+        dot.onmousedown = function(e){inputMouseDown(this, nodeId, index)}
+
+        return input;
     }
 
 }
