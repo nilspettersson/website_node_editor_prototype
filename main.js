@@ -93,7 +93,7 @@ function mouseUp(e){
 document.onmousemove = function(e){
     if(currentNodeInputIndex != "-1"){
         let input = document.getElementsByClassName("input" + currentNodeId)[currentNodeInputIndex];
-        console.log(input.getBoundingClientRect());
+        //console.log(input.getBoundingClientRect());
 
         lineX = input.getBoundingClientRect().x;
         lineY = input.getBoundingClientRect().y;
@@ -138,6 +138,27 @@ function inputMouseDown(e, nodeId, inputIndex){
 /*function inputMouseUp(e, nodeId, inputIndex){
     console.log(nodeId);
 }*/
+
+
+function outputMouseUp(e, nodeId){
+    console.log(currentNodeId + "  " + nodeId);
+    console.log(nodes);
+    for(let i = 0; i < nodes.length; i++){
+        if(nodes[i].id == currentNodeId){
+            for(let ii = 0; ii < nodes.length; ii++){
+                if(nodes[ii].id == nodeId){
+                    nodes[i].addNode(nodes[ii]);
+                    nodes.splice(ii, 1);
+                }
+                
+            }
+        }
+        
+    }
+    console.log(nodes);
+}
+
+
 
 
 document.onmouseup = function(e){
@@ -197,6 +218,7 @@ class HtmlNode{
 
         let output = document.createElement("div");
         output.classList.add("output");
+        output.onmouseup = function(e){outputMouseUp(this, nodeId)}
 
         node.append(header);
         node.append(this.createContent());
