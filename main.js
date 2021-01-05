@@ -29,10 +29,11 @@ window.onload = function(){
     /*let div = new NodeDiv(0, 0);
     div.addNode(new NodeText(400, 0));*/
 
-    output = new NodeOutput(400, 40);
+    output = new NodeOutput(600, 40);
     //output.addNode(div);
 
     nodes.push(output);
+    nodes.push(new NodeDiv(300, 40));
     nodes.push(new NodeText(40, 40));
     //nodes.push(output);
 
@@ -140,22 +141,41 @@ function inputMouseDown(e, nodeId, inputIndex){
 }*/
 
 
+//adds child node to parent
 function outputMouseUp(e, nodeId){
-    console.log(currentNodeId + "  " + nodeId);
-    console.log(nodes);
+    //console.log(currentNodeId + "  " + nodeId);
+    //console.log(nodes);
+
+    let parent = null;
     for(let i = 0; i < nodes.length; i++){
         if(nodes[i].id == currentNodeId){
-            for(let ii = 0; ii < nodes.length; ii++){
-                if(nodes[ii].id == nodeId){
-                    nodes[i].addNode(nodes[ii]);
-                    nodes.splice(ii, 1);
-                }
-                
+            parent = nodes[i];
+            break;
+        }
+        else{
+            parent = nodes[i].findNode(currentNodeId);
+            console.log("parent " + parent);
+            if(parent != null){
+                break;
             }
+        }
+        console.log(i);
+    }
+    console.log(nodes.length);
+    if(parent == null){
+        return;
+    }
+
+    for(let i = 0; i < nodes.length; i++){
+        if(nodes[i].id == nodeId){
+            parent.addNode(nodes[i]);
+            nodes.splice(i, 1);
+            break;
         }
         
     }
-    console.log(nodes);
+
+    console.log(output);
 }
 
 
@@ -176,6 +196,22 @@ class HtmlNode{
         this.nodes = [];
 
         id++;
+    }
+
+    findNode(nodeId){
+        for(let i = 0; i < this.nodes.length; i++){
+            if(this.nodes[i].id == nodeId){
+                return this.nodes[i];
+            }
+            else{
+                let foundNode = this.nodes[i].findNode(nodeId);
+                if(foundNode != null){
+                    return foundNode;
+                }
+            }
+            
+        }
+        return null;
     }
 
     addNode(node){
