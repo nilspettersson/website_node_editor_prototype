@@ -4,7 +4,13 @@ let difY = 0;
 let setup = false;
 let id = 1;
 
-let nodeActive = false;
+//let nodeActive = false;
+let currentNodeInputIndex;
+let currentNodeId;
+
+let lineX = 0;
+let lineY = 0;
+
 
 let output;
 
@@ -12,8 +18,12 @@ let canvas;
 let g;
 
 window.onload = function(){
-    currentNode  = null;
+    currentNode = null;
 
+    currentNodeInputIndex = "-1";
+    currentNodeId = "-1";
+
+    
     nodes = [];
 
     let div = new NodeDiv(0, 0);
@@ -32,7 +42,7 @@ window.onload = function(){
     }, 100);*/
     
 
-    let css = 'body{ background:lightgray}'
+    let css = 'body{ background:lightgray }'
 
     /*let website = '<!DOCTYPE html>'+
     '<html lang="en">'+
@@ -46,12 +56,12 @@ window.onload = function(){
     canvas = document.getElementById("canvas");
     g = canvas.getContext("2d");
 
-    g.clearRect(0, 0, canvas.width, canvas.height);
-        g.strokeStyle = "gray";
-        g.beginPath();
-        g.moveTo(0, 0);
-        g.lineTo(400, 100);
-        g.stroke();
+    /*g.clearRect(0, 0, canvas.width, canvas.height);
+    g.strokeStyle = "gray";
+    g.beginPath();
+    g.moveTo(0, 0);
+    g.lineTo(400, 100);
+    g.stroke();*/
     
 
 }
@@ -63,8 +73,9 @@ document.onkeyup = function(e){
 
 //if mouse is down on node. 
 function mouseDown(e){
-    if(nodeActive){
-        console.log("nooo");
+    if(currentNodeInputIndex != "-1"){
+        console.log(e);
+
         return;
     }
     currentNode = e;
@@ -73,10 +84,28 @@ function mouseDown(e){
 }
 
 function mouseUp(e){
+    currentNodeInputIndex = "-1";
     currentNode = null;
 }
 
 document.onmousemove = function(e){
+    if(currentNodeInputIndex != "-1"){
+        let input = document.getElementsByClassName("input" + currentNodeId)[currentNodeInputIndex];
+        console.log(input.getBoundingClientRect());
+
+        lineX = input.getBoundingClientRect().x;
+        lineY = input.getBoundingClientRect().y;
+        console.log(lineX);
+        g.clearRect(0, 0, canvas.width, canvas.height);
+        g.strokeStyle = "gray";
+        g.beginPath();
+        g.moveTo(lineX - 4, lineY + input.getBoundingClientRect().height / 2 - 4);
+        g.lineTo(e.x, e.y);
+        g.stroke();
+        
+    }
+
+
     if(currentNode == null){
         return;
     }
@@ -98,15 +127,16 @@ document.onmousemove = function(e){
 }
 
 
-function inputMouseDown(e){
-    nodeActive = true;
-    console.log(e);
+function inputMouseDown(e, nodeId, inputIndex){
+    currentNodeId = nodeId;
+    currentNodeInputIndex = inputIndex;
+    console.log(inputIndex);
 }
 
 
 document.onmouseup = function(e){
-    if(nodeActive){
-        nodeActive = false;
+    if(currentNodeInputIndex != "-1"){
+        currentNodeInputIndex = "-1";
     }
     
 }
@@ -152,7 +182,8 @@ class HtmlNode{
         dot.classList.add("dot");
         input.append(dot);
 
-        dot.onmousedown = function(e){inputMouseDown(this)}
+        let nodeId = this.id;
+        dot.onmousedown = function(e){inputMouseDown(this, nodeId, 0)}
         dot.onmouseup = function(e){inputMouseUp(this)}
 
 
