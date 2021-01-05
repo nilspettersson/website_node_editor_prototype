@@ -42,6 +42,10 @@ window.onload = function(){
         nodes.push(new NodeText(20, 120));
     }
 
+    for(let i = 0; i < 6; i++){
+        nodes.push(new NodeHeader(20, 270));
+    }
+
     output.getHtml();
 
 
@@ -338,6 +342,29 @@ class NodeText extends HtmlNode{
     getHtml(){
         
         return '<p>' + document.getElementById("textarea" + this.id).value + '</p>';
+    }
+}
+
+class NodeHeader extends HtmlNode{
+    constructor(x, y){
+        super(x, y, "header");
+    }
+
+    createContent(){
+        let content = document.createElement("div");
+        content.classList.add("content");
+
+        let text = document.createElement("textarea");
+        text.id = "textarea" + this.id;
+
+        content.append(text);
+
+        return content;
+    }
+
+    getHtml(){
+        
+        return '<h1>' + document.getElementById("textarea" + this.id).value + '</h1>';
     }
 }
 
