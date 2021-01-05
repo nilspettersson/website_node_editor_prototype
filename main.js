@@ -49,24 +49,9 @@ window.onload = function(){
 
     let css = 'body{ background:lightgray }'
 
-    /*let website = '<!DOCTYPE html>'+
-    '<html lang="en">'+
-    '<head><title>website</title> <style>'+ css +'</style> </head>'+
-    '<body><h1>hello</h1> <p>testing some text to see if ita worka lika me wanta</p></body>'+
-    '</html>';
-
-    let viewer = document.getElementById("viewer");
-    viewer.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(website);*/
-
     canvas = document.getElementById("canvas");
     g = canvas.getContext("2d");
 
-    /*g.clearRect(0, 0, canvas.width, canvas.height);
-    g.strokeStyle = "gray";
-    g.beginPath();
-    g.moveTo(0, 0);
-    g.lineTo(400, 100);
-    g.stroke();*/
     
     drawLines();
 }
@@ -74,7 +59,7 @@ window.onload = function(){
 function drawLines(){
     g.clearRect(0, 0, canvas.width, canvas.height);
 
-    console.log(nodes);
+    //console.log(nodes);
     for(let i = 0; i < nodes.length; i++){
         nodes[i].nodes
         for(let ii = 0; ii < nodes[i].nodes.length; ii++){
@@ -98,10 +83,6 @@ function drawLines(){
 
         }
 
-        
-
-        //lineX = input.getBoundingClientRect().x;
-        //lineY = input.getBoundingClientRect().y;
 
     }
 
@@ -123,13 +104,11 @@ document.onkeyup = function(e){
 //if mouse is down on node. 
 function mouseDown(e){
     if(currentNodeInputIndex != "-1"){
-        console.log(e);
 
         return;
     }
     currentNode = e;
     setup = true;
-    console.log(e);
 }
 
 function mouseUp(e){
