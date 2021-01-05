@@ -59,12 +59,23 @@ iframe {
     border: 0.064em solid #ffffff3a;
 }
 
+
 .node .header{
-    background: #226491;
+    /*background: #226491;*/
     color: white;
     padding: 0.5em 1em;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.node-output{
+    background: #228a91;
+}
+.node-div{
+    background: #226491;
+}
+.node-text{
+    background: #389122;
 }
 
 .node .content{

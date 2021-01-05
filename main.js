@@ -259,26 +259,11 @@ class HtmlNode{
 
         let header = document.createElement("div");
         header.classList.add("header");
+        header.classList.add("node-" + type);
 
         let headerText = document.createElement("p");
         headerText.innerHTML = type;
         header.append(headerText);
-
-
-
-        /*let input = document.createElement("div");
-        input.classList.add("input");
-        input.classList.add("input" + this.id);
-
-        let dot = document.createElement("div");
-        dot.classList.add("dot");
-        input.append(dot);
-
-        let nodeId = this.id;
-        dot.onmousedown = function(e){inputMouseDown(this, nodeId, 0)}*/
-
-        //fix this later
-        //dot.onmouseup = function(e){inputMouseUp(this, nodeId, 0)}
 
 
         let output = document.createElement("div");
