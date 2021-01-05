@@ -26,13 +26,15 @@ window.onload = function(){
     
     nodes = [];
 
-    let div = new NodeDiv(0, 0);
-    div.addNode(new NodeText(400, 0));
+    /*let div = new NodeDiv(0, 0);
+    div.addNode(new NodeText(400, 0));*/
 
-    output = new NodeOutput(90, 40);
-    output.addNode(div);
+    output = new NodeOutput(400, 40);
+    //output.addNode(div);
 
     nodes.push(output);
+    nodes.push(new NodeText(40, 40));
+    //nodes.push(output);
 
     output.getHtml();
 
@@ -95,7 +97,7 @@ document.onmousemove = function(e){
 
         lineX = input.getBoundingClientRect().x;
         lineY = input.getBoundingClientRect().y;
-        console.log(lineX);
+        
         g.clearRect(0, 0, canvas.width, canvas.height);
         g.strokeStyle = "gray";
         g.beginPath();
@@ -132,6 +134,10 @@ function inputMouseDown(e, nodeId, inputIndex){
     currentNodeInputIndex = inputIndex;
     console.log(inputIndex);
 }
+
+/*function inputMouseUp(e, nodeId, inputIndex){
+    console.log(nodeId);
+}*/
 
 
 document.onmouseup = function(e){
@@ -184,12 +190,18 @@ class HtmlNode{
 
         let nodeId = this.id;
         dot.onmousedown = function(e){inputMouseDown(this, nodeId, 0)}
-        dot.onmouseup = function(e){inputMouseUp(this)}
 
+        //fix this later
+        //dot.onmouseup = function(e){inputMouseUp(this, nodeId, 0)}
+
+
+        let output = document.createElement("div");
+        output.classList.add("output");
 
         node.append(header);
         node.append(this.createContent());
         node.append(input);
+        node.append(output);
 
         document.getElementById("editor").append(node);
     }

@@ -81,3 +81,15 @@ iframe {
     border: calc(1em / 16) solid #000000af;
     border-radius: 100%;
 }
+
+.node .output{
+    overflow: visible;
+    position: absolute;
+    right: -0.3em;
+    top: 0.9em;
+    height: 0.6em;
+    width: 0.6em;
+    background: #707070;
+    border: calc(1em / 16) solid #000000af;
+    border-radius: 100%;
+}
