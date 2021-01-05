@@ -35,28 +35,45 @@ iframe {
 
 .node{ 
     display: inline-block;
-    background: rgb(44, 44, 44);
-    border: 0.064em solid rgba(255, 255, 255, 0);
+    background: #2c2c2c;
+    border: 0.064em solid #ffffff00;
     border-radius: 10px;
     /*height: 10em;*/
     min-width: 12em;
     /*resize: both;*/
-    overflow: hidden;
     position: absolute;
-    z-index: 0;
 }
 
 .node:hover{
-    border: 0.064em solid rgba(255, 255, 255, 0.226);
+    border: 0.064em solid #ffffff3a;
 }
 
 .node .header{
-    background: rgb(34, 100, 145);
+    background: #226491;
     color: white;
     padding: 0.5em 1em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .node .content{
     color: white;
     padding: 0.5em 1em;
+}
+
+.input{
+    position: relative;
+    height: 1.6em;
+}
+
+.input .dot{
+    overflow: visible;
+    position: absolute;
+    left: -0.3em;
+    top: 0.5em;
+    background: #707070;
+    border: calc(1em / 16) solid #000000af;
+    height: 0.6em;
+    width: 0.6em;
+    border-radius: 100%;
 }

@@ -11,7 +11,7 @@ window.onload = function(){
     currentNode  = null;
 
     nodes = [];
-    
+
     let div = new NodeDiv(0, 0);
     div.addNode(new NodeText(400, 0));
 
@@ -107,6 +107,12 @@ class HtmlNode{
 
         let input = document.createElement("div");
         input.classList.add("input");
+        input.classList.add("input" + id);
+
+        let dot = document.createElement("div");
+        dot.classList.add("dot");
+        input.append(dot);
+
 
         node.append(header);
         node.append(this.createContent());
