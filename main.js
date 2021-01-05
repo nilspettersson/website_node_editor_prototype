@@ -12,6 +12,7 @@ let lineX = 0;
 let lineY = 0;
 
 
+
 let output;
 
 let canvas;
@@ -33,7 +34,8 @@ window.onload = function(){
     //output.addNode(div);
 
     nodes.push(output);
-    nodes.push(new NodeDiv(300, 40));
+    nodes.push(new NodeDiv(300, 20));
+    //output.addNode(new NodeText(40, 120));
     nodes.push(new NodeText(40, 40));
     //nodes.push(output);
 
@@ -66,8 +68,52 @@ window.onload = function(){
     g.lineTo(400, 100);
     g.stroke();*/
     
-
+    drawLines();
 }
+
+function drawLines(){
+    g.clearRect(0, 0, canvas.width, canvas.height);
+
+    console.log(nodes);
+    for(let i = 0; i < nodes.length; i++){
+        nodes[i].nodes
+        for(let ii = 0; ii < nodes[i].nodes.length; ii++){
+            let node = document.getElementsByClassName("input" + nodes[i].id)[ii];
+            //console.log(node.getBoundingClientRect());
+
+            let startX = node.getBoundingClientRect().x - 4;
+            let startY = node.getBoundingClientRect().y + node.getBoundingClientRect().height / 2 - 4;
+
+            let childNode = document.getElementById("node" + nodes[i].nodes[ii].id);
+            //console.log(childNode.getBoundingClientRect());
+            let endX = childNode.getBoundingClientRect().x + childNode.getBoundingClientRect().width - 4;
+            let endY = childNode.getBoundingClientRect().y + 16;
+
+
+            g.strokeStyle = "gray";
+            g.beginPath();
+            g.moveTo(startX, startY);
+            g.lineTo(endX, endY);
+            g.stroke();
+
+        }
+
+        
+
+        //lineX = input.getBoundingClientRect().x;
+        //lineY = input.getBoundingClientRect().y;
+
+    }
+
+    /*g.clearRect(0, 0, canvas.width, canvas.height);
+    g.strokeStyle = "gray";
+    g.beginPath();
+    g.moveTo(lineX - 4, lineY + input.getBoundingClientRect().height / 2 - 4);
+    g.lineTo(e.x, e.y);
+    g.stroke();*/
+}
+
+
 
 document.onkeyup = function(e){
     output.getHtml();
@@ -94,7 +140,6 @@ function mouseUp(e){
 document.onmousemove = function(e){
     if(currentNodeInputIndex != "-1"){
         let input = document.getElementsByClassName("input" + currentNodeId)[currentNodeInputIndex];
-        //console.log(input.getBoundingClientRect());
 
         lineX = input.getBoundingClientRect().x;
         lineY = input.getBoundingClientRect().y;
@@ -127,6 +172,9 @@ document.onmousemove = function(e){
 
     currentNode.style.left = (x + difX) + "px";
     currentNode.style.top = (y + difY) + "px";
+
+    drawLines();
+
 }
 
 
