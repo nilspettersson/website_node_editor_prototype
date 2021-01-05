@@ -2,10 +2,14 @@ let currentNode;
 let difX = 0;
 let difY = 0;
 let setup = false;
+let id = 1;
 
-id = 1;
+let nodeActive = false;
 
 let output;
+
+let canvas;
+let g;
 
 window.onload = function(){
     currentNode  = null;
@@ -39,6 +43,17 @@ window.onload = function(){
     let viewer = document.getElementById("viewer");
     viewer.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(website);*/
 
+    canvas = document.getElementById("canvas");
+    g = canvas.getContext("2d");
+
+    g.clearRect(0, 0, canvas.width, canvas.height);
+        g.strokeStyle = "gray";
+        g.beginPath();
+        g.moveTo(0, 0);
+        g.lineTo(400, 100);
+        g.stroke();
+    
+
 }
 
 document.onkeyup = function(e){
@@ -46,8 +61,12 @@ document.onkeyup = function(e){
 }
 
 
-
+//if mouse is down on node. 
 function mouseDown(e){
+    if(nodeActive){
+        console.log("nooo");
+        return;
+    }
     currentNode = e;
     setup = true;
     console.log(e);
@@ -78,20 +97,38 @@ document.onmousemove = function(e){
     currentNode.style.top = (y + difY) + "px";
 }
 
+
+function inputMouseDown(e){
+    nodeActive = true;
+    console.log(e);
+}
+
+
+document.onmouseup = function(e){
+    if(nodeActive){
+        nodeActive = false;
+    }
+    
+}
+
+
 class HtmlNode{
     constructor(x, y, type){
         this.id = id;
         this.createElement(x, y, type);
         this.nodes = [];
+
+        id++;
     }
 
     addNode(node){
         this.nodes.push(node);
     }
 
+
     createElement(x, y, type){
         let node = document.createElement("div");
-        node.id = "node" + id++;
+        node.id = "node" + this.id;
         node.style.left = x + "px";
         node.style.top = y + "px";
         node.classList.add("node");
@@ -105,13 +142,18 @@ class HtmlNode{
         headerText.innerHTML = type;
         header.append(headerText);
 
+
+
         let input = document.createElement("div");
         input.classList.add("input");
-        input.classList.add("input" + id);
+        input.classList.add("input" + this.id);
 
         let dot = document.createElement("div");
         dot.classList.add("dot");
         input.append(dot);
+
+        dot.onmousedown = function(e){inputMouseDown(this)}
+        dot.onmouseup = function(e){inputMouseUp(this)}
 
 
         node.append(header);
