@@ -11,9 +11,9 @@ window.onload = function(){
     currentNode  = null;
 
     nodes = [];
-    //nodes.push(new NodeDiv(0, 0));
+    
     let div = new NodeDiv(0, 0);
-    div.addNode(new NodeP(400, 0));
+    div.addNode(new NodeText(400, 0));
 
     output = new NodeOutput(90, 40);
     output.addNode(div);
@@ -121,6 +121,8 @@ class HtmlNode{
     }
 
 }
+
+
 class NodeDiv extends HtmlNode{
     constructor(x, y){
         super(x, y, "div");
@@ -137,9 +139,9 @@ class NodeDiv extends HtmlNode{
     }
 }
 
-class NodeP extends HtmlNode{
+class NodeText extends HtmlNode{
     constructor(x, y){
-        super(x, y, "div");
+        super(x, y, "text");
     }
 
     createContent(){
