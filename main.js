@@ -217,7 +217,7 @@ class HtmlNode{
         return space;
     }
 
-    getHtml(depth){
+    getHtml(){
         return "";
     }
 
@@ -336,13 +336,13 @@ class NodeDiv extends HtmlNode{
         super(x, y, "div");
     }
 
-    getHtml(depth){
+    getHtml(){
         let html = '';
         for(let i = 0; i < this.nodes.length; i++){
-            html += this.nodes[i].getHtml(depth + 1);
+            html += this.nodes[i].getHtml();
         }
         
-        return this.space(depth) + '<div> \n' + html + '\n' + this.space(depth) + '</div> \n'
+        return '<div> \n' + html + '\n </div> \n'
     }
 }
 
@@ -361,8 +361,8 @@ class NodeText extends HtmlNode{
     }
 
 
-    getHtml(depth){
-        return this.space(depth) + '<p> \n' + this.space(depth + 1) + document.getElementById("textarea" + this.id).value + '\n' + this.space(depth) + '</p> \n';
+    getHtml(){
+        return '<p> \n' + document.getElementById("textarea" + this.id).value + '\n </p> \n';
     }
 }
 
@@ -380,9 +380,8 @@ class NodeHeader extends HtmlNode{
         return content;
     }
 
-    getHtml(depth){
-        
-        return this.space(depth) + '<h1> \n' + this.space(depth + 1) + document.getElementById("textarea" + this.id).value + '\n' + this.space(depth) + '</h1> \n';
+    getHtml(){
+        return '<h1> \n' + document.getElementById("textarea" + this.id).value + '\n </h1> \n';
     }
 }
 
@@ -395,7 +394,7 @@ class NodeOutput extends HtmlNode{
     getHtml(){
         let html = '';
         for(let i = 0; i < this.nodes.length; i++){
-            html += this.nodes[i].getHtml(1);
+            html += this.nodes[i].getHtml();
         }
 
         let website = '<!DOCTYPE html> \n' +
