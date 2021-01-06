@@ -209,6 +209,18 @@ class HtmlNode{
         id++;
     }
 
+    space(depth){
+        let space = "";
+        for(let i = 0; i < depth; i++){
+            space += "&emsp; ";
+        }
+        return space;
+    }
+
+    getHtml(depth){
+        return "";
+    }
+
     drawLines(){
         for(let i = 0; i < this.nodes.length; i++){
             let node = document.getElementsByClassName("input" + this.id)[i];
@@ -318,19 +330,19 @@ class HtmlNode{
 }
 
 
+
 class NodeDiv extends HtmlNode{
     constructor(x, y){
         super(x, y, "div");
     }
 
-    getHtml(){
+    getHtml(depth){
         let html = '';
         for(let i = 0; i < this.nodes.length; i++){
-            /*console.log(this.nodes[i].getHtml());*/
-            html += this.nodes[i].getHtml();
+            html += this.nodes[i].getHtml(depth + 1);
         }
-
-        return '<div>' + html + '</div>'
+        
+        return this.space(depth) + '<div> \n' + html + '\n' + this.space(depth) + '</div> \n'
     }
 }
 
@@ -349,8 +361,8 @@ class NodeText extends HtmlNode{
     }
 
 
-    getHtml(){
-        return '<p>' + document.getElementById("textarea" + this.id).value + '</p>';
+    getHtml(depth){
+        return this.space(depth) + '<p> \n' + this.space(depth + 1) + document.getElementById("textarea" + this.id).value + '\n' + this.space(depth) + '</p> \n';
     }
 }
 
@@ -368,9 +380,9 @@ class NodeHeader extends HtmlNode{
         return content;
     }
 
-    getHtml(){
+    getHtml(depth){
         
-        return '<h1>' + document.getElementById("textarea" + this.id).value + '</h1>';
+        return this.space(depth) + '<h1> \n' + this.space(depth + 1) + document.getElementById("textarea" + this.id).value + '\n' + this.space(depth) + '</h1> \n';
     }
 }
 
@@ -383,7 +395,7 @@ class NodeOutput extends HtmlNode{
     getHtml(){
         let html = '';
         for(let i = 0; i < this.nodes.length; i++){
-            html += this.nodes[i].getHtml();
+            html += this.nodes[i].getHtml(1);
         }
 
         let website = '<!DOCTYPE html> \n' +
