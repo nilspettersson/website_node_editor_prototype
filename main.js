@@ -88,7 +88,10 @@ function mouseDown(e){
     setup = true;
 }
 
-function mouseUp(e){
+function mouseUp(e, nodeId){
+    if(currentNodeId != "-1" && currentNodeId != nodeId){
+        outputMouseUp(e, nodeId);
+    }
     currentNodeInputIndex = "-1";
     currentNode = null;
 }
@@ -149,6 +152,7 @@ function inputMouseDown(e, nodeId, inputIndex){
 
 
 //adds child node to parent
+//nodeId is id of child and currentNodeId is the praent id
 function outputMouseUp(e, nodeId){
     console.log(e);
     let parent = null;
@@ -183,6 +187,9 @@ function outputMouseUp(e, nodeId){
         }
         
     }
+    if(currentNodeId != "-1"){
+        currentNodeId = "-1";
+    }
 
     console.log(output);
     drawLines();
@@ -196,7 +203,9 @@ document.onmouseup = function(e){
     if(currentNodeInputIndex != "-1"){
         currentNodeInputIndex = "-1";
     }
-    
+    if(currentNodeId != "-1"){
+        currentNodeId = "-1";
+    }
 }
 
 
@@ -269,13 +278,15 @@ class HtmlNode{
 
 
     createElement(x, y, type){
+        let nodeId = this.id;
+
         let node = document.createElement("div");
         node.id = "node" + this.id;
         node.style.left = x + "px";
         node.style.top = y + "px";
         node.classList.add("node");
         node.onmousedown = function(e){mouseDown(this)}
-        node.onmouseup = function(e){mouseUp(this)}
+        node.onmouseup = function(e){mouseUp(this, nodeId)}
 
         let header = document.createElement("div");
         header.classList.add("header");
@@ -288,7 +299,7 @@ class HtmlNode{
 
         let output = document.createElement("div");
         output.classList.add("output");
-        let nodeId = this.id;
+        
         output.onmouseup = function(e){outputMouseUp(this, nodeId)}
 
         node.append(header);

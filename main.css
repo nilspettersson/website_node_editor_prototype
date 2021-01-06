@@ -12,9 +12,6 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-canvas{
-    
-}
 
 .container{
     margin: 0em 0em;
@@ -22,7 +19,7 @@ canvas{
 
 .view{
     display: flex;
-    height: 48vh;
+    height: 38vh;
 }
 
 iframe {
@@ -48,7 +45,7 @@ iframe {
     margin-bottom: 0.4em;
     padding: 4px;
     background: rgb(29, 29, 29);
-    height: 50vh;
+    height: 60vh;
     overflow: hidden;
     position: relative;
 }
