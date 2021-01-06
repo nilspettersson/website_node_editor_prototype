@@ -13,8 +13,16 @@
     </head>
     <body>
         <div class="container">
-            <div id="editor"><canvas id="canvas" width="1920" height=1080></canvas></div>
-            <iframe id='viewer'></iframe>
+            <div id="editor">
+                <canvas id="canvas" width="1920" height=1080></canvas>
+            </div>
+            <div class="view">
+                <iframe id='viewer'></iframe>
+                <div id="code-viewer">
+                    <p id="code"></p>
+                </div>
+            </div>
+            
         </div>
         
     </body>

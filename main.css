@@ -20,15 +20,32 @@ canvas{
     margin: 0em 0em;
 }
 
+.view{
+    display: flex;
+    height: 48vh;
+}
+
 iframe {
-    height: 300px;
-    width: 100%;
-    resize: both;
+    float: left;
+    height: 100%;
+    width: 50%;
+    resize: horizontal;
     overflow: auto;
-    border: solid 0.1em rgb(48, 48, 48);
+    border: solid 0.1em rgb(104, 104, 104);
+}
+
+#code-viewer{
+    overflow: auto;
+    resize: horizontal;
+    width: 50%;
+    display: inline-block;
+    color: white;
+    padding: 1em;
+    background: #2c2c2c;
 }
 
 #editor{
+    margin-bottom: 0.4em;
     padding: 4px;
     background: rgb(29, 29, 29);
     height: 50vh;
@@ -42,9 +59,7 @@ iframe {
     background: #2c2c2c;
     border: 0.064em solid #ffffff00;
     border-radius: 10px;
-    /*height: 10em;*/
     min-width: 12em;
-    /*resize: both;*/
     position: absolute;
     
     -webkit-touch-callout: none;

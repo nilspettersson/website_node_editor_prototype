@@ -186,6 +186,7 @@ function outputMouseUp(e, nodeId){
 
     console.log(output);
     drawLines();
+    output.getHtml();
 }
 
 
@@ -382,18 +383,24 @@ class NodeOutput extends HtmlNode{
     getHtml(){
         let html = '';
         for(let i = 0; i < this.nodes.length; i++){
-            /*console.log(this.nodes[i].getHtml());*/
             html += this.nodes[i].getHtml();
         }
 
-        let website = '<!DOCTYPE html>'+
-        '<html lang="en">'+
-        '<head><title>website</title> <style></style> </head>'+
-        '<body>' + html + '</body>'+
-        '</html>';
+        let website = '<!DOCTYPE html> \n' +
+        '<html lang="en"> \n'+
+        '<head> \n &emsp; <title>website</title> \n &emsp; <style></style> \n </head> \n'+
+        '<body> \n' + html + '\n </body>'+
+        '\n </html>';
     
         let viewer = document.getElementById("viewer");
         viewer.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(website);
+    
+        let code = document.getElementById("code");
+        website = website.replaceAll("<", "&lt;");
+        website = website.replaceAll(">", "&gt;");
+        website = website.replaceAll("\n", "<br>");
+        code.innerHTML = website;
+    
     }
 }
 
