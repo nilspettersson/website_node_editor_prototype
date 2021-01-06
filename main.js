@@ -73,6 +73,7 @@ function drawLines(){
 
 
 
+
 document.onkeyup = function(e){
     output.getHtml();
 }
@@ -96,6 +97,30 @@ function mouseUp(e, nodeId){
     currentNode = null;
 }
 
+let editorDrag = false;
+
+document.onmousedown = function(e){
+    lastMouseX = e.pageX;
+    lastMouseY = e.pageY;
+    if(currentNodeId == "-1"){
+        editorDrag = true;
+    }
+}
+
+document.onmouseup = function(e){
+    editorDrag = false;
+    if(currentNodeInputIndex != "-1"){
+        currentNodeInputIndex = "-1";
+    }
+    if(currentNodeId != "-1"){
+        currentNodeId = "-1";
+    }
+}
+
+
+let lastMouseX = -1;
+let lastMouseY = -1;
+
 document.onmousemove = function(e){
     if(currentNodeInputIndex != "-1"){
         let input = document.getElementsByClassName("input" + currentNodeId)[currentNodeInputIndex];
@@ -114,8 +139,39 @@ document.onmousemove = function(e){
 
 
     if(currentNode == null){
+        if(editorDrag){
+            console.log("awsd");
+            let nodes = document.getElementsByClassName("node");
+
+            let x = e.pageX;
+            let y = e.pageY;
+            if(lastMouseX == -1){
+                lastMouseX = x;
+                lastMouseY = y;
+            }
+            for(let i = 0; i < nodes.length; i++){
+                
+
+                //removes the px to get the location of the node
+                let nodeX = nodes[i].style.left.replace("px", "");
+                let nodeY = nodes[i].style.top.replace("px", "");
+
+                let newX = parseInt(nodeX) + (x - lastMouseX);
+                let newY = parseInt(nodeY) + (y - lastMouseY);
+
+
+                nodes[i].style.left = (newX) + "px";
+                nodes[i].style.top = (newY) + "px";
+            }
+            lastMouseX = x;
+            lastMouseY = y;
+
+            drawLines();
+        }
+
         return;
     }
+
     let x = e.pageX;
     let y = e.pageY;
 
@@ -141,9 +197,10 @@ document.onmousemove = function(e){
 
 
 function inputMouseDown(e, nodeId, inputIndex){
+    editorDrag = false;
     currentNodeId = nodeId;
     currentNodeInputIndex = inputIndex;
-    console.log(inputIndex);
+    console.log("edit no");
 }
 
 /*function inputMouseUp(e, nodeId, inputIndex){
@@ -198,15 +255,6 @@ function outputMouseUp(e, nodeId){
 
 
 
-
-document.onmouseup = function(e){
-    if(currentNodeInputIndex != "-1"){
-        currentNodeInputIndex = "-1";
-    }
-    if(currentNodeId != "-1"){
-        currentNodeId = "-1";
-    }
-}
 
 
 class HtmlNode{
